@@ -1,8 +1,13 @@
+import logging
 from telegram import ParseMode
 from telegram.ext import Updater, CommandHandler
 import requests
 import re
 
+# Enable logging
+logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+                    level=logging.INFO)
+logger = logging.getLogger(__name__)
 TOKEN = '1873304340:AAGpY3F5leYN_y3Ebz-mkvDf6o7Zh35Riic'
 API_KEY = '0664cb0dac0948c5a70e52eb532f45fe'
 REQUEST_URL = 'https://api.spoonacular.com/recipes/random?number=1&tags=dessert&apiKey={}'
@@ -40,6 +45,10 @@ def construct_caption(name, src_url, summary):
             \n<b>Description</b>: {}'.format(name, src_url, summary)
 
 
+def error(update, context):
+    logger.warning('Update "%s" caused error "%s"', update, context.error)
+
+
 def pls(update, context):
     (name, image_url, source_url, summary) = get_image_url_summary()
     caption = construct_caption(name, source_url, summary)
@@ -52,6 +61,7 @@ def main():
     updater = Updater(TOKEN)
     dp = updater.dispatcher
     dp.add_handler(CommandHandler('pls', pls))
+    dp.add_error_handler(error)
     updater.start_polling()
     updater.idle()
 
