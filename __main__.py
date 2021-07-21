@@ -4,6 +4,7 @@ from telegram.ext import Updater, CommandHandler
 import requests
 import re
 import os
+from keys import TOKEN, API_KEY, WEBAPP_URL
 
 # Enable logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -12,12 +13,8 @@ logger = logging.getLogger(__name__)
 
 PORT = int(os.environ.get('PORT', 5000))
 
-TOKEN = '1873304340:AAGpY3F5leYN_y3Ebz-mkvDf6o7Zh35Riic'
-API_KEY = '0664cb0dac0948c5a70e52eb532f45fe'
 REQUEST_URL = 'https://api.spoonacular.com/recipes/random?number=1&tags=dessert&apiKey={}'
 MAX_SUMMARY_CHAR_LENGTH = 1200
-
-WEBAPP_URL = 'https://daily-cakey-bot.herokuapp.com/'
 
 
 def get_recipe():
