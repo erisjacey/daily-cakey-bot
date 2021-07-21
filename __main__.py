@@ -27,8 +27,9 @@ MAX_SUMMARY_CHAR_LENGTH = 1200
 
 def start(update, context):
     """Sends a message when the command /start is issued."""
-    update.message.reply_text(
-        'Hi! Enter /pls to obtain a random dessert recipe.')
+    chat_id = update.message.chat_id
+    context.bot.send_message(
+        chat_id=chat_id, text='Hi! Enter /pls to obtain a random dessert recipe.')
 
 
 def get_recipe():
@@ -71,7 +72,9 @@ def construct_caption(name, src_url, summary):
 def error(update, context):
     """Logs errors and sends error messages caused by updates."""
     logger.warning('Update "%s" caused error "%s"', update, context.error)
-    context.bot.send_message('There seems to be an error somewhere. Sorry :(')
+    chat_id = update.message.chat_id
+    context.bot.send_message(
+        chat_id=chat_id, text='There seems to be an error somewhere. Sorry :(')
 
 
 def pls(update, context):
