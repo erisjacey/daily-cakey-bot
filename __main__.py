@@ -11,7 +11,7 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 logger = logging.getLogger(__name__)
 
 # OS port to listen to
-PORT = int(os.getenv('PORT', 5000))
+PORT = int(os.environ.get('PORT', 5000))
 
 # Heroku config keys
 TOKEN = os.getenv('TOKEN')
