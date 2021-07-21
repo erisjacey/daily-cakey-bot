@@ -4,16 +4,24 @@ from telegram.ext import Updater, CommandHandler
 import requests
 import re
 import os
-from keys import TOKEN, API_KEY, WEBAPP_URL
 
 # Enable logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                     level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-PORT = int(os.environ.get('PORT', 5000))
+# OS port to listen to
+PORT = int(os.getenv('PORT', 5000))
 
+# Heroku config keys
+TOKEN = os.getenv('TOKEN')
+API_KEY = os.getenv('API_KEY')
+WEBAPP_URL = os.getenv('WEBAPP_URL')
+
+# API call URL
 REQUEST_URL = 'https://api.spoonacular.com/recipes/random?number=1&tags=dessert&apiKey={}'
+
+# To limit caption length
 MAX_SUMMARY_CHAR_LENGTH = 1200
 
 
